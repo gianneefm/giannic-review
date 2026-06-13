@@ -158,6 +158,14 @@ const App = () => {
         .font-mono {
           font-family: 'Share Tech Mono', monospace;
         }
+        @keyframes rating-pulse {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05); }
+          100% { transform: scale(1); }
+        }
+        .animate-rating-pulse {
+          animation: rating-pulse 2s infinite ease-in-out;
+        }
       `}} />
 
       <div 
@@ -176,8 +184,8 @@ const App = () => {
           </div>
         </div>
 
-                {/* VINYL SECTION */}
-        <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden"style={{
+        {/* VINYL SECTION */}
+        <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden" style={{
           backgroundImage: `linear-gradient(135deg, ${bgStop1} 0%, ${bgStop2} 100%)`
         }}>
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
@@ -187,15 +195,12 @@ const App = () => {
             
             {/* Диск (Vinyl Container) */}
             <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/40 overflow-hidden shadow-inner">
-              <div className="absolute inset-0 smoke-layer opacity-60" />
-              <div className="absolute inset-0 groove-tactile opacity-90" />
-              <div className="absolute inset-0 groove-highlights opacity-60" />
               <div className="absolute inset-0" style={{
                 background: `radial-gradient(circle, ${vinylColor} 0%, #784212 60%, #1a1612 100%)`
               }}/>
               <div className="absolute inset-0 rounded-full border border-white/5" />
               
-              {/* Яблоко (Central Album Cover) - INSET 18% EXACTLY */}
+              {/* Яблоко (Central Album Cover) */}
               <div 
                 className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
               >
@@ -231,8 +236,9 @@ const App = () => {
 
         {/* FOOTER */}
         <div className="h-[56px] bg-[#f0f3f4] flex items-center justify-between px-8 border-t border-neutral-200 shrink-0 z-30">
-          <div className="flex items-center gap-8">
-            <div className="flex flex-col items-center justify-center min-w-[25px]">
+          <div className="flex items-center w-full">
+            {/* Секция со звездой и рейтингом */}
+            <div className="flex flex-col items-center justify-center min-w-[30px]">
               <DynamicGradientStar 
                 id="star-rating-main" 
                 ratingValue={ratingValue} 
@@ -249,19 +255,21 @@ const App = () => {
               </span>
             </div>
 
-            <div className="flex flex-col items-start justify-center opacity-30">
+            {/* RELEASE RANK - Strictly positioned between star and tier label */}
+            <div className="flex flex-col items-center justify-center opacity-30 flex-1">
               <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black">RELEASE</span>
               <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black mt-1 leading-none">RANK</span>
             </div>
-          </div>
 
-          <div className="flex items-center justify-end">
-            <span 
-              className="font-header text-xl font-black tracking-tighter uppercase"
-              style={{ color: syncedColor }}
-            >
-              {ratingValue === null ? "WAІTІNG…" : current.label}
-            </span>
+            {/* Tier label section with Orbitron font and dynamic color */}
+            <div className="flex items-center justify-end min-w-[60px]">
+              <span 
+                className="font-orbitron text-xl font-black tracking-tighter uppercase"
+                style={{ color: syncedColor }}
+              >
+                {ratingValue === null ? "WAІTІNG…" : current.label}
+              </span>
+            </div>
           </div>
         </div>
 
