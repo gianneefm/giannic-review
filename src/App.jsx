@@ -118,7 +118,7 @@ const App = () => {
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
     { label: "FLOP", color: "#EA580C", threshold: 1.5, average: 2.0 },
     { label: "MOP", color: "#F59E0B", threshold: 2.5, average: 3.0 },
-    { label: "POP", color: "#2563EB", threshold: 3.5, average: 4.25 },
+    { label: "POP", color: "#7D9A3A", threshold: 3.5, average: 4.25 },
     { label: "TOP", color: "#059669", threshold: 5.0, average: 5.0 },
   ];
 
