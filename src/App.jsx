@@ -108,7 +108,9 @@ const DynamicGradientStar = ({
 const App = () => {
   const coverLink = "https://i.ibb.co/RGzFtkmf/Florence-The-Machine-The-Old-Religion-80141286-cover-art.png";
   const artist = " FLORENCE + THE MACHINE";
-  const vinylColor = "#A68966"
+  const vinylColor = "#A68966";
+  const bgStop1 = '#2A241F';
+  const bgStop2 = '#161310';
   const albumTitle = "EVERYBODY SCREAM";
   const ratingValue = 4.5; // По умолчанию NULL, можно заменить на значение от 0 до 5 для теста
 
@@ -175,7 +177,9 @@ const App = () => {
         </div>
 
                 {/* VINYL SECTION */}
-        <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden bg-white">
+        <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden"style={{
+          backgroundImage: `linear-gradient(135deg, ${bgStop1} 0%, ${bgStop2} 100%)`
+        }}>
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
             
             {/* Глубокая тень */}
