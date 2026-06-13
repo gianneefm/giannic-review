@@ -108,8 +108,9 @@ const DynamicGradientStar = ({
 const App = () => {
   const coverLink = "https://i.ibb.co/RGzFtkmf/Florence-The-Machine-The-Old-Religion-80141286-cover-art.png";
   const artist = " FLORENCE + THE MACHINE";
+  const vinylColor = "#A68966"
   const albumTitle = "EVERYBODY SCREAM";
-  const ratingValue = null; // По умолчанию NULL, можно заменить на значение от 0 до 5 для теста
+  const ratingValue = 4.5; // По умолчанию NULL, можно заменить на значение от 0 до 5 для теста
 
   const TIERS = [
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
@@ -173,34 +174,52 @@ const App = () => {
           </div>
         </div>
 
-        {/* VINYL SECTION */}
+                {/* VINYL SECTION */}
         <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden bg-white">
-          <div className="relative w-[80%] aspect-square z-10">
-            <div className="absolute inset-0 rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.5)]"></div>
-            {/* Статичный винил: удален класс animate-spin-slow */}
-            <div className="vinyl-grooves absolute inset-0 rounded-full border-2 border-black/40 overflow-hidden">
-              {/* Обложка — добавил clip-path для круглой формы */}
+          <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
+            
+            {/* Глубокая тень */}
+            <div className="absolute inset-2 rounded-full shadow-[0_30px_60px_-5px_rgba(0,0,0,1)]"></div>
+            
+            {/* Диск (Vinyl Container) */}
+            <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/40 overflow-hidden shadow-inner">
+              <div className="absolute inset-0 smoke-layer opacity-60" />
+              <div className="absolute inset-0 groove-tactile opacity-90" />
+              <div className="absolute inset-0 groove-highlights opacity-60" />
+              <div className="absolute inset-0" style={{
+                background: `radial-gradient(circle, ${vinylColor} 0%, #784212 60%, #1a1612 100%)`
+              }}/>
+              <div className="absolute inset-0 rounded-full border border-white/5" />
+              
+              {/* Яблоко (Central Album Cover) - INSET 18% EXACTLY */}
               <div 
-                className="absolute inset-[18%] rounded-full border-[6px] border-black/95 flex items-center justify-center shadow-inner z-10"
-                style={{
-                  backgroundImage: `url(${coverLink})`,
-                  backgroundSize: 'cover',
-                  clipPath: 'circle(50% at 50% 50%)'
-                }}
+                className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
               >
-                <div className="w-5 h-5 bg-white rounded-full border border-black/20" />
+                <div 
+                  className="absolute inset-0"
+                  style={{
+                    backgroundImage: `url(${coverLink})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                
+                {/* Центральное отверстие (Central Hole) */}
+                <div className="relative w-6 h-6 bg-white rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30">
+                  <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
+                </div>
               </div>
-              <div className="absolute inset-0 glass-reflection" />
             </div>
           </div>
 
+          {/* Текстовая подложка */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-8 pointer-events-none text-center">
-            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/80 via-black/40 to-transparent backdrop-blur-[2px]" />
+            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
             
-            <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-md">
+            <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
               {albumTitle}
             </h2>
-            <h3 className="relative font-mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.5em] uppercase mt-1 drop-shadow-md opacity-90">
+            <h3 className="relative font-mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.5em] uppercase mt-1 opacity-80">
               {artist}
             </h3>
           </div>
