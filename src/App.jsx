@@ -112,7 +112,7 @@ const App = () => {
   const bgStop1 = '#2A241F';
   const bgStop2 = '#161310';
   const albumTitle = "EVERYBODY SCREAM";
-  const ratingValue = 4.5; // По умолчанию NULL, можно заменить на значение от 0 до 5 для теста
+  const ratingValue = 4.5; 
 
   const TIERS = [
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
@@ -122,13 +122,14 @@ const App = () => {
     { label: "TOP", color: "#059669", threshold: 5.0, average: 5.0 },
   ];
 
-  const current = TIERS[3]; // По умолчанию выбран тир POP
+  const current = TIERS[3]; 
   const previous = TIERS[2];
   const next = TIERS[4];
   
   const fillPercentage = ratingValue !== null ? (ratingValue / 5) * 100 : 0;
   const displayRating = ratingValue !== null ? ratingValue.toFixed(2).replace('.', ',') : null;
 
+  // Логика получения активного цвета, идентичная логике звезды
   const getActiveColor = () => {
     if (ratingValue === null) return "#b0afac";
     const nextColorFactor = fillPercentage / 100;
@@ -146,7 +147,6 @@ const App = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-neutral-200 p-4">
-      {/* Интеграция шрифтов Orbitron, Space Grotesk и Share Tech Mono */}
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;700;900&display=swap');
         .font-orbitron {
@@ -189,18 +189,12 @@ const App = () => {
           backgroundImage: `linear-gradient(135deg, ${bgStop1} 0%, ${bgStop2} 100%)`
         }}>
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
-            
-            {/* Глубокая тень */}
             <div className="absolute inset-2 rounded-full shadow-[0_30px_60px_-5px_rgba(0,0,0,1)]"></div>
-            
-            {/* Диск (Vinyl Container) */}
             <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/40 overflow-hidden shadow-inner">
               <div className="absolute inset-0" style={{
                 background: `radial-gradient(circle, ${vinylColor} 0%, #784212 60%, #1a1612 100%)`
               }}/>
               <div className="absolute inset-0 rounded-full border border-white/5" />
-              
-              {/* Яблоко (Central Album Cover) */}
               <div 
                 className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
               >
@@ -212,8 +206,6 @@ const App = () => {
                     backgroundPosition: 'center',
                   }}
                 />
-                
-                {/* Центральное отверстие (Central Hole) */}
                 <div className="relative w-6 h-6 bg-white rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30">
                   <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
                 </div>
@@ -221,10 +213,8 @@ const App = () => {
             </div>
           </div>
 
-          {/* Текстовая подложка */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-8 pointer-events-none text-center">
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
-            
             <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
               {albumTitle}
             </h2>
@@ -248,7 +238,7 @@ const App = () => {
                 fillPercentage={fillPercentage}
               />
               <span 
-                className="font-mono text-[12px] font-black tracking-tighter leading-none mt-1"
+                className="font-mono text-[12px] font-black tracking-tighter leading-none mt-1 transition-colors duration-300"
                 style={{ color: syncedColor }}
               >
                 {displayRating}
@@ -264,7 +254,7 @@ const App = () => {
             {/* Tier label section with Orbitron font and dynamic color */}
             <div className="flex items-center justify-end min-w-[60px]">
               <span 
-                className="font-orbitron text-xl font-black tracking-tighter uppercase"
+                className="font-orbitron text-xl font-black tracking-tighter uppercase transition-colors duration-300"
                 style={{ color: syncedColor }}
               >
                 {ratingValue === null ? "WAІTІNG…" : current.label}
