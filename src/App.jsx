@@ -111,25 +111,29 @@ const App = () => {
   const vinylColor = "#A68966";
   const bgStop1 = '#2A241F';
   const bgStop2 = '#161310';
+  const hdStop1 = '#F8F9FA';
+  const hdStop2 = '#E9ECEF';
+  const ftStop1 = '#E9ECEF';
+  const ftStop2 = '#DEE2E6';
+
   const albumTitle = "EVERYBODY SCREAM";
-  const ratingValue = 4.5; 
+  const ratingValue = 4.5;
 
   const TIERS = [
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
     { label: "FLOP", color: "#EA580C", threshold: 1.5, average: 2.0 },
     { label: "MOP", color: "#F59E0B", threshold: 2.5, average: 3.0 },
-    { label: "POP", color: "#7D9A3A", threshold: 3.5, average: 4.25 },
-    { label: "TOP", color: "#059669", threshold: 5.0, average: 5.0 },
+    { label: "POP", color: "#7D9A3A", threshold: 3.5, average: 4.0 },
+    { label: "TOP", color: "#059669", threshold: 4.5, average: 4.75 },
   ];
 
-  const current = TIERS[3]; 
+  const current = TIERS[3]; // По умолчанию выбран тир POP
   const previous = TIERS[2];
   const next = TIERS[4];
   
   const fillPercentage = ratingValue !== null ? (ratingValue / 5) * 100 : 0;
   const displayRating = ratingValue !== null ? ratingValue.toFixed(2).replace('.', ',') : null;
 
-  // Логика получения активного цвета, идентичная логике звезды
   const getActiveColor = () => {
     if (ratingValue === null) return "#b0afac";
     const nextColorFactor = fillPercentage / 100;
@@ -147,6 +151,7 @@ const App = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-neutral-200 p-4">
+      {/* Интеграция шрифтов Orbitron, Space Grotesk и Share Tech Mono */}
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;700;900&display=swap');
         .font-orbitron {
@@ -169,7 +174,7 @@ const App = () => {
       `}} />
 
       <div 
-        className="w-full max-w-[450px] aspect-square flex flex-col bg-white shadow-2xl rounded-sm overflow-hidden relative"
+        className="w-full max-w-[450px] aspect-square flex flex-col shadow-2xl rounded-sm overflow-hidden relative"
         style={{ border: '2px solid red' }}
       >
         {/* HEADER */}
@@ -189,12 +194,18 @@ const App = () => {
           backgroundImage: `linear-gradient(135deg, ${bgStop1} 0%, ${bgStop2} 100%)`
         }}>
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
+            
+            {/* Глубокая тень */}
             <div className="absolute inset-2 rounded-full shadow-[0_30px_60px_-5px_rgba(0,0,0,1)]"></div>
+            
+            {/* Диск (Vinyl Container) */}
             <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/40 overflow-hidden shadow-inner">
               <div className="absolute inset-0" style={{
                 background: `radial-gradient(circle, ${vinylColor} 0%, #784212 60%, #1a1612 100%)`
               }}/>
               <div className="absolute inset-0 rounded-full border border-white/5" />
+              
+              {/* Яблоко (Central Album Cover) */}
               <div 
                 className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
               >
@@ -206,15 +217,21 @@ const App = () => {
                     backgroundPosition: 'center',
                   }}
                 />
-                <div className="relative w-6 h-6 bg-white rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30">
+                
+                {/* Центральное отверстие (Central Hole) */}
+                <div className="relative w-6 h-6 rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30"
+                    style={{ackgroundImage: `linear-gradient(135deg, ${ftStop1}, ${ftStop2})`}}
+                >
                   <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Текстовая подложка */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-8 pointer-events-none text-center">
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
+            
             <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
               {albumTitle}
             </h2>
@@ -238,7 +255,7 @@ const App = () => {
                 fillPercentage={fillPercentage}
               />
               <span 
-                className="font-mono text-[12px] font-black tracking-tighter leading-none mt-1 transition-colors duration-300"
+                className="font-mono text-[12px] font-black tracking-tighter leading-none mt-1"
                 style={{ color: syncedColor }}
               >
                 {displayRating}
@@ -254,7 +271,7 @@ const App = () => {
             {/* Tier label section with Orbitron font and dynamic color */}
             <div className="flex items-center justify-end min-w-[60px]">
               <span 
-                className="font-orbitron text-xl font-black tracking-tighter uppercase transition-colors duration-300"
+                className="font-orbitron text-xl font-black tracking-tighter uppercase"
                 style={{ color: syncedColor }}
               >
                 {ratingValue === null ? "WAІTІNG…" : current.label}
