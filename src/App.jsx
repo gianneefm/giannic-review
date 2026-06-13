@@ -106,8 +106,9 @@ const DynamicGradientStar = ({
 };
 
 const App = () => {
-  const artist = "ARTIST NAME";
-  const albumTitle = "ALBUM TITLE";
+  const coverLink = "https://i.ibb.co/RGzFtkmf/Florence-The-Machine-The-Old-Religion-80141286-cover-art.png";
+  const artist = " FLORENCE + THE MACHINE";
+  const albumTitle = "EVERYBODY SCREAM";
   const ratingValue = null; // По умолчанию NULL, можно заменить на значение от 0 до 5 для теста
 
   const TIERS = [
@@ -142,19 +143,33 @@ const App = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-neutral-200 p-4">
+      {/* Интеграция шрифтов Orbitron, Space Grotesk и Share Tech Mono */}
+      <style dangerouslySetInnerHTML={{__html: `
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;700;900&display=swap');
+        .font-orbitron {
+          font-family: 'Orbitron', sans-serif;
+        }
+        .font-header {
+          font-family: 'Space Grotesk', sans-serif;
+        }
+        .font-mono {
+          font-family: 'Share Tech Mono', monospace;
+        }
+      `}} />
+
       <div 
         className="w-full max-w-[450px] aspect-square flex flex-col bg-white shadow-2xl rounded-sm overflow-hidden relative"
         style={{ border: '2px solid red' }}
       >
         {/* HEADER */}
         <div className="h-[32px] bg-[#fdfdfb] flex items-center justify-between px-6 border-b border-neutral-100 shrink-0 z-30 text-black">
-          <span className="font-header text-[10px] tracking-[0.45em] text-black font-black uppercase">
+          <span className="font-orbitron text-[10px] tracking-[0.45em] text-black font-black uppercase">
             GIANNIC REVIEW
           </span>
           <div className="flex space-x-1">
             <div className="w-1.5 h-1.5 rounded-full bg-black" />
             <div className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
-            <div className="w-1.5 h-1.5 rounded-full bg-neutral-100 border" />
+            <div className="w-1.5 h-1.5 rounded-full bg-neutral-100 border border-neutral-200" />
           </div>
         </div>
 
@@ -162,8 +177,17 @@ const App = () => {
         <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden bg-white">
           <div className="relative w-[80%] aspect-square z-10">
             <div className="absolute inset-0 rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.5)]"></div>
-            <div className="vinyl-grooves absolute inset-0 rounded-full border-2 border-black/40 animate-spin-slow overflow-hidden">
-              <div className="absolute inset-[18%] rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 border-[6px] border-black/95 flex items-center justify-center shadow-inner z-10">
+            {/* Статичный винил: удален класс animate-spin-slow */}
+            <div className="vinyl-grooves absolute inset-0 rounded-full border-2 border-black/40 overflow-hidden">
+              {/* Обложка — добавил clip-path для круглой формы */}
+              <div 
+                className="absolute inset-[18%] rounded-full border-[6px] border-black/95 flex items-center justify-center shadow-inner z-10"
+                style={{
+                  backgroundImage: `url(${coverLink})`,
+                  backgroundSize: 'cover',
+                  clipPath: 'circle(50% at 50% 50%)'
+                }}
+              >
                 <div className="w-5 h-5 bg-white rounded-full border border-black/20" />
               </div>
               <div className="absolute inset-0 glass-reflection" />
@@ -203,8 +227,8 @@ const App = () => {
             </div>
 
             <div className="flex flex-col items-start justify-center opacity-30">
-              <span className="font-header text-[7px] tracking-[0.3em] font-black uppercase text-black">RELEASE</span>
-              <span className="font-header text-[7px] tracking-[0.3em] font-black uppercase text-black mt-1 leading-none">RANK</span>
+              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black">RELEASE</span>
+              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black mt-1 leading-none">RANK</span>
             </div>
           </div>
 
