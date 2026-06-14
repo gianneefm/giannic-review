@@ -107,7 +107,6 @@ const DynamicGradientStar = ({
 
 const App = () => {
   const coverLink = "https://i.ibb.co/RGzFtkmf/Florence-The-Machine-The-Old-Religion-80141286-cover-art.png";
-  const artist = " FLORENCE + THE MACHINE";
   const vinylColor = "#A68966";
   const bgStop1 = '#2A241F';
   const bgStop2 = '#161310';
@@ -115,8 +114,8 @@ const App = () => {
   const hdStop2 = '#E9ECEF';
   const ftStop1 = '#E9ECEF';
   const ftStop2 = '#DEE2E6';
-
   const albumTitle = "EVERYBODY SCREAM";
+  const artist = " FLORENCE + THE MACHINE";
   const ratingValue = 4.5;
 
   const TIERS = [
@@ -127,9 +126,13 @@ const App = () => {
     { label: "TOP", color: "#059669", threshold: 4.5, average: 4.75 },
   ];
 
-  const current = TIERS[3]; // По умолчанию выбран тир POP
-  const previous = TIERS[2];
-  const next = TIERS[4];
+  
+  const currentIndex = TIERS.slice().reverse().findIndex(tier => ratingValue >= tier.threshold);
+  const actualIndex = currentIndex >= 0 ? (TIERS.length - 1 - currentIndex) : 0;
+
+  const current = TIERS[actualIndex];
+  const previous = TIERS[actualIndex - 1];
+  const next = TIERS[actualIndex + 1];
   
   const fillPercentage = ratingValue !== null ? (ratingValue / 5) * 100 : 0;
   const displayRating = ratingValue !== null ? ratingValue.toFixed(2).replace('.', ',') : null;
