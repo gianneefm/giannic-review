@@ -107,13 +107,13 @@ const DynamicGradientStar = ({
 
 const App = () => {
   const coverLink = "https://i.ibb.co/k6BkRRBQ/2025-12-cover-art.png";
-  const vinylColor = "#000000";
-  const bgStop1 = '#0D0D0D';
-  const bgStop2 = '#8E2DE2';
+  const vinylColor = "#111111";
+  const bgStop1 = '#050B05';
+  const bgStop2 = '#1A331A';
   const hdStop1 = '#39ff14';
   const hdStop2 = '#00FFFF';
-  const ftStop1 = '#39ff14';
-  const ftStop2 = '00ffff';
+  const ftStop1 = '#DFFF00';
+  const ftStop2 = '#1DB954';
   const albumTitle = "Судный день";
   const artist = "ЛСП";
   const ratingValue = null;
