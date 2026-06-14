@@ -106,17 +106,17 @@ const DynamicGradientStar = ({
 };
 
 const App = () => {
-  const coverLink = "https://i.ibb.co/RGzFtkmf/Florence-The-Machine-The-Old-Religion-80141286-cover-art.png";
-  const vinylColor = "#A68966";
-  const bgStop1 = '#2A241F';
-  const bgStop2 = '#161310';
-  const hdStop1 = '#F8F9FA';
-  const hdStop2 = '#E9ECEF';
-  const ftStop1 = '#E9ECEF';
-  const ftStop2 = '#DEE2E6';
-  const albumTitle = "EVERYBODY SCREAM";
-  const artist = " FLORENCE + THE MACHINE";
-  const ratingValue = 4.5;
+  const coverLink = "https://i.ibb.co/k6BkRRBQ/2025-12-cover-art.png";
+  const vinylColor = "#000000";
+  const bgStop1 = '#FFFFFF';
+  const bgStop2 = '#FFFFFF';
+  const hdStop1 = '#FFFFFF';
+  const hdStop2 = '#FFFFFF';
+  const ftStop1 = '#FFFFFF';
+  const ftStop2 = '#FFFFFF';
+  const albumTitle = "Судный день";
+  const artist = "ЛСП";
+  const ratingValue = null;
 
   const TIERS = [
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
