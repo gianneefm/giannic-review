@@ -108,7 +108,7 @@ const DynamicGradientStar = ({
 const App = () => {
   // Константы палитры Toxic Alchemy
   const coverLink = "https://i.ibb.co/k6BkRRBQ/2025-12-cover-art.png";
-  const vinylColor = '#c6e8bc";
+  const vinylColor = '#C6E8BC';
   const bgStop1 = '#050B05';
   const bgStop2 = '#1A331A';
   const hdStop1 = '#DFFF00';
