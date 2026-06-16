@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Вспомогательная функция для смешивания HEX-цветов.
+ * Helper function for HEX color interpolation.
  */
 const interpolateColor = (color1, color2, factor) => {
   if (!color1 || !color2) return "#b0afac";
@@ -18,15 +18,13 @@ const interpolateColor = (color1, color2, factor) => {
 };
 
 /**
- * DynamicGradientStar: Отрисовка звезды с динамическим градиентом.
+ * DynamicGradientStar: Renders the SVG star using the passed-in synchronized gradient stops.
  */
 const DynamicGradientStar = ({ 
   id, 
   ratingValue, 
-  current, 
-  previous, 
-  next, 
-  fillPercentage 
+  fillPercentage,
+  gradientStops 
 }) => {
   const waitingColor = "#b0afac";
   
@@ -47,15 +45,6 @@ const DynamicGradientStar = ({
     );
   }
 
-  const currentDark = interpolateColor(current.color, "#000000", 0.4);
-  const prevDark = previous ? interpolateColor(previous.color, "#000000", 0.4) : "#000000";
-  const mixFactor = (100 - fillPercentage) / 100;
-  const mixedPreviousDark = interpolateColor(prevDark, currentDark, mixFactor);
-  const mixedNext = next ? interpolateColor(current.color, next.color, fillPercentage / 100) : current.color;
-
-  const isBelowAverage = ratingValue < current.average;
-  const isAboveAverage = ratingValue > current.average;
-
   const paintId = `${id}-paint`;
   const maskId = `${id}-mask-fill`;
 
@@ -68,21 +57,9 @@ const DynamicGradientStar = ({
       >
         <defs>
           <linearGradient id={paintId} x1="0%" y1="0%" x2="100%" y2="0%">
-            {isBelowAverage ? (
-              <>
-                <stop offset="0%" stopColor={mixedPreviousDark} />
-                <stop offset="50%" stopColor={currentDark} />
-                <stop offset="100%" stopColor={current.color} />
-              </>
-            ) : isAboveAverage ? (
-              <>
-                <stop offset="0%" stopColor={currentDark} />
-                <stop offset="50%" stopColor={current.color} />
-                <stop offset="100%" stopColor={mixedNext} />
-              </>
-            ) : (
-              <stop offset="0%" stopColor={current.color} />
-            )}
+            {gradientStops.map((stop, index) => (
+              <stop key={index} offset={stop.offset} stopColor={stop.color} />
+            ))}
           </linearGradient>
 
           <mask id={maskId}>
@@ -106,7 +83,7 @@ const DynamicGradientStar = ({
 };
 
 const App = () => {
-  // Константы палитры Toxic Alchemy
+  // Toxic Alchemy Palette Constants
   const coverLink = "https://i.ibb.co/k6BkRRBQ/2025-12-cover-art.png";
   const vinylColor = '#98ffd6';
   const bgStop1 = '#050B05';
@@ -138,43 +115,59 @@ const App = () => {
   const fillPercentage = ratingValue !== null ? (ratingValue / 5) * 100 : 0;
   const displayRating = ratingValue !== null ? ratingValue.toFixed(2).replace('.', ',') : null;
 
-  const getActiveColor = () => {
-    if (ratingValue === null) return "#b0afac";
-    const nextColorFactor = fillPercentage / 100;
-    const mixedNext = next ? interpolateColor(current.color, next.color, nextColorFactor) : current.color;
+  // 1. Centralized Gradient Logic for synchronization
+  const getSynchronizedGradient = () => {
+    if (ratingValue === null) return { stops: [], css: "none" };
 
-    if (ratingValue < current.average) {
-      return current.color; 
-    } else if (ratingValue > current.average) {
-      return mixedNext;
+    const currentDark = interpolateColor(current.color, "#000000", 0.4);
+    const prevDark = previous ? interpolateColor(previous.color, "#000000", 0.4) : "#000000";
+    const mixFactor = (100 - fillPercentage) / 100;
+    const mixedPreviousDark = interpolateColor(prevDark, currentDark, mixFactor);
+    const mixedNext = next ? interpolateColor(current.color, next.color, fillPercentage / 100) : current.color;
+
+    const isBelowAverage = ratingValue < current.average;
+    const isAboveAverage = ratingValue > current.average;
+
+    let stops = [];
+    if (isBelowAverage) {
+      stops = [
+        { offset: "0%", color: mixedPreviousDark },
+        { offset: "50%", color: currentDark },
+        { offset: "100%", color: current.color }
+      ];
+    } else if (isAboveAverage) {
+      stops = [
+        { offset: "0%", color: currentDark },
+        { offset: "50%", color: current.color },
+        { offset: "100%", color: mixedNext }
+      ];
+    } else {
+      stops = [
+        { offset: "0%", color: current.color },
+        { offset: "100%", color: current.color }
+      ];
     }
-    return current.color;
+
+    const cssString = `linear-gradient(90deg, ${stops.map(s => `${s.color} ${s.offset}`).join(', ')})`;
+    return { stops, css: cssString };
   };
 
-  const syncedColor = getActiveColor();
+  const gradientData = getSynchronizedGradient();
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-neutral-900 p-4">
-      {/* Интеграция шрифтов */}
+      {/* Font & Keyframe Integration */}
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;700;900&display=swap');
-        .font-orbitron {
-          font-family: 'Orbitron', sans-serif;
-        }
-        .font-header {
-          font-family: 'Space Grotesk', sans-serif;
-        }
-        .font-mono {
-          font-family: 'Share Tech Mono', monospace;
-        }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .font-header { font-family: 'Space Grotesk', sans-serif; }
+        .font-mono { font-family: 'Share Tech Mono', monospace; }
         @keyframes rating-pulse {
           0% { transform: scale(1); }
           50% { transform: scale(1.05); }
           100% { transform: scale(1); }
         }
-        .animate-rating-pulse {
-          animation: rating-pulse 2s infinite ease-in-out;
-        }
+        .animate-rating-pulse { animation: rating-pulse 2s infinite ease-in-out; }
       `}} />
 
       <div 
@@ -197,31 +190,20 @@ const App = () => {
         <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden" style={{
           backgroundImage: `linear-gradient(135deg, ${bgStop1} 0%, ${bgStop2} 100%)`
         }}>
-          {/* Highlight/Neon Gradient Overlay */}
           <div className="absolute inset-0 opacity-20 pointer-events-none" style={{
             background: `radial-gradient(circle at top right, ${hdStop1}, transparent 70%)`
           }} />
 
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
-            
-            {/* Глубокая тень */}
             <div className="absolute inset-2 rounded-full shadow-[0_30px_60px_-5px_rgba(0,0,0,1)]"></div>
-            
-            {/* Диск (Vinyl Container) */}
             <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/60 overflow-hidden shadow-inner">
               <div className="absolute inset-0" style={{
                 background: `radial-gradient(circle, ${vinylColor} 0%, #0a110a 60%, #000000 100%)`
               }}/>
-              
-              {/* Канавки винила */}
               <div className="absolute inset-0 rounded-full opacity-20" style={{
                 background: `repeating-radial-gradient(circle, transparent, transparent 2px, rgba(255,255,255,0.05) 3px)`
               }} />
-              
-              {/* Яблоко (Central Album Cover) */}
-              <div 
-                className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.9)] z-20 overflow-hidden"
-              >
+              <div className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_40px_rgba(0,0,0,0.9)] z-20 overflow-hidden">
                 <div 
                   className="absolute inset-0"
                   style={{
@@ -230,8 +212,6 @@ const App = () => {
                     backgroundPosition: 'center',
                   }}
                 />
-                
-                {/* Центральное отверстие (Central Hole) */}
                 <div className="relative w-6 h-6 rounded-full border border-black/40 shadow-inner flex items-center justify-center z-30 overflow-hidden bg-black">
                   <div className="absolute inset-0 opacity-50" style={{
                     backgroundImage: `linear-gradient(135deg, ${hdStop1}, ${hdStop2})`
@@ -242,10 +222,8 @@ const App = () => {
             </div>
           </div>
 
-          {/* Текстовая подложка */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-8 pointer-events-none text-center">
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/40 to-transparent backdrop-blur-[0.5px]" />
-            
             <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_8px_rgba(0,0,0,1)]">
               {albumTitle}
             </h2>
@@ -260,35 +238,41 @@ const App = () => {
           background: `linear-gradient(90deg, ${ftStop1} 0%, ${ftStop2} 100%)`
         }}>
           <div className="flex items-center w-full">
-            {/* Секция со звездой и рейтингом */}
+            {/* RATING SECTION */}
             <div className="flex flex-col items-center justify-center min-w-[30px]">
               <DynamicGradientStar 
                 id="star-rating-main" 
                 ratingValue={ratingValue} 
-                current={current}
-                previous={previous}
-                next={next}
                 fillPercentage={fillPercentage}
+                gradientStops={gradientData.stops}
               />
+              {/* Syncing Numerical Rating Text Gradient */}
               <span 
-                className="font-mono text-[12px] font-black tracking-tighter leading-none mt-1"
-                style={{ color: syncedColor }}
+                className="font-mono text-[12px] font-black tracking-tighter leading-none mt-1 bg-clip-text text-transparent"
+                style={{ 
+                  backgroundImage: ratingValue === null ? 'none' : gradientData.css,
+                  backgroundColor: ratingValue === null ? "#b0afac" : "transparent"
+                }}
               >
                 {displayRating}
               </span>
             </div>
 
-            {/* RELEASE RANK */}
+            {/* RELEASE RANK LABELS */}
             <div className="flex flex-col items-center justify-center opacity-40 flex-1">
               <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-white">RELEASE</span>
               <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-white mt-1 leading-none">RANK</span>
             </div>
 
-            {/* Tier label section */}
+            {/* TIER LABEL SECTION */}
             <div className="flex items-center justify-end min-w-[60px]">
+              {/* Syncing Tier Label Text Gradient */}
               <span 
-                className="font-orbitron text-xl font-black tracking-tighter uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-                style={{ color: syncedColor === "#b0afac" ? "#ffffff" : syncedColor }}
+                className="font-orbitron text-xl font-black tracking-tighter uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] bg-clip-text text-transparent"
+                style={{ 
+                  backgroundImage: ratingValue === null ? 'none' : gradientData.css,
+                  backgroundColor: ratingValue === null ? "#ffffff" : "transparent"
+                }}
               >
                 {ratingValue === null ? "WAІTІNG…" : current.label}
               </span>
