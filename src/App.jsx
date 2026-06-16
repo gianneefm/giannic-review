@@ -118,7 +118,7 @@ const App = () => {
 
   const albumTitle = "Судный день";
   const artist = "ЛСП";
-  const ratingValue = null; // Текущее состояние: Ожидание
+  const ratingValue = 4.29;
 
   const TIERS = [
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
