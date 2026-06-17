@@ -90,13 +90,12 @@ const App = () => {
   const bgStop2 = '#1A331A';
   const hdStop1 = '#DFFF00';
   const hdStop2 = '#32CD32';
-  const holTypography = '0A1F0A';
+  const holTypography = ftStop1;
 
   const ftStop1 = '#0A1F0A';
   const ftStop2 = '#1DB954';
-  const ftTypography = '#DFFF00';
+  const ftTypography = holtStop1;
     
-
   const albumTitle = "Судный день";
   const artist = "ЛСП";
 
