@@ -95,7 +95,9 @@ const App = () => {
 
   const albumTitle = "Судный день";
   const artist = "ЛСП";
-  const ratingValue = 4.29;
+
+  const rateArray = [857];
+  const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * 200);
 
   const TIERS = [
     { label: "STOP", color: "#EF4444", threshold: 0, average: 0.75 },
