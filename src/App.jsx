@@ -90,8 +90,12 @@ const App = () => {
   const bgStop2 = '#1A331A';
   const hdStop1 = '#DFFF00';
   const hdStop2 = '#32CD32';
+  const holTypography = '0A1F0A';
+
   const ftStop1 = '#0A1F0A';
   const ftStop2 = '#1DB954';
+  const ftTypography = '#DFFF00';
+    
 
   const albumTitle = "Судный день";
   const artist = "ЛСП";
@@ -178,7 +182,10 @@ const App = () => {
       >
         {/* HEADER */}
         <div className="h-[32px] bg-[#fdfdfb] flex items-center justify-between px-6 border-b border-neutral-100 shrink-0 z-30 text-black">
-          <span className="font-orbitron text-[10px] tracking-[0.45em] text-black font-black uppercase">
+          <span className="font-orbitron text-[10px] tracking-[0.45em] text-black uppercase"
+                style={{
+                  fontColor: `${hdTypography}`
+                }}>
             GIANNIC REVIEW
           </span>
           <div className="flex space-x-1">
@@ -237,6 +244,8 @@ const App = () => {
 
         {/* FOOTER */}
         <div className="h-[56px] flex items-center justify-between px-8 border-t border-white/10 shrink-0 z-30" style={{
+                  fontColor: `${ftTypography}`
+                }}>
           background: `linear-gradient(90deg, ${ftStop1} 0%, ${ftStop2} 100%)`
         }}>
           <div className="flex items-center w-full">
@@ -262,8 +271,14 @@ const App = () => {
 
             {/* RELEASE RANK LABELS */}
             <div className="flex flex-col items-center justify-center opacity-40 flex-1">
-              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-white">RELEASE</span>
-              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-white mt-1 leading-none">RANK</span>
+              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase"
+                style={{
+                  fontColor: `${ftTypography}`
+                }}>RELEASE</span>
+              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase mt-1 leading-none"
+                style={{
+                  fontColor: `${ftTypography}`
+                }}>>RANK</span>
             </div>
 
             {/* TIER LABEL SECTION */}
