@@ -96,7 +96,7 @@ const App = () => {
   const albumTitle = "Судный день";
   const artist = "ЛСП";
 
-  const rateArray = [857];
+  const rateArray = [857; 1000];
   const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * 200);
 
   const TIERS = [
