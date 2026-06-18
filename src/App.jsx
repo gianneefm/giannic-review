@@ -285,11 +285,12 @@ const App = () => {
                 />
                 
                 {/* Центральное отверстие (Central Hole) */}
-                <div className="relative w-6 h-6 rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30"
-                      style={{
-                        backgroundColor: '#00000000'
-                      }}
-                >
+<div className="relative w-10 h-10 rounded-full border-[3px] border-black/30 shadow-[inset_0_2px_4px_rgba(0,0,0,0.3)] flex items-center justify-center z-30"
+      style={{
+        backgroundColor: vinylColor
+      }}>
+             
+                   
                   <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
                 </div>
               </div>
@@ -360,3 +361,4 @@ const App = () => {
 };
 
 export default App;
+
