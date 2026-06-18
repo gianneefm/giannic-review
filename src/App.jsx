@@ -159,7 +159,7 @@ const App = () => {
   const hdTypo = '#333333';
   const ftStop1 = '#171411';
   const ftStop2 = '#0D100B';
-  const ftTypo = '#F0F0F0';
+  const ftTypo = '##696868';
   const albumTitle = '';
   const artist = '';
 
