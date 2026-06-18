@@ -150,19 +150,21 @@ const adjustColor = (hex, lOffset, sOffset = 0) => {
 }
 
 const App = () => {
-  const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
-  const vinylColor = "#F0F0F0";
-  const bgStop1 = '#FFFFFF';
-  const bgStop2 = '#FFFFFF';
+  const coverLink = '';
+  const vinylColor = '#F5F5ED';
+  const bgStop1 = '#F2F5E9';
+  const bgStop2 = '#D6DBCC';
   const hdStop1 = '#FFFFFF';
-  const hdStop2 = '#FFFFFF';
-  const ftStop1 = '#FFFFFF';
-  const ftStop2 = '#FFFFFF';
-  const albumTitle = "Врубай на полную!";
-  const artist = "Руки вверх!";
+  const hdStop2 = '#F8F8F4';
+  const hdTypo = '#333333';
+  const ftStop1 = '#171411';
+  const ftStop2 = '#0D100B';
+  const ftTypo = '#F0F0F0';
+  const albumTitle = '';
+  const artist = '';
 
   const scaleMx = 1000;
-  const rateArray = [846, 978, 812, 910];
+  const rateArray = [];
   const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * (scaleMx / 5));
 
   const TIERS = [
@@ -241,9 +243,10 @@ const App = () => {
       <div className="w-full max-w-[450px] aspect-square flex flex-col shadow-2xl rounded-sm overflow-hidden relative">
         {/* HEADER */}
         <div className="h-[32px] bg-[#fdfdfb] flex items-center justify-between px-6 border-b border-neutral-100 shrink-0 z-30 text-black">
-          <span className="font-orbitron text-[10px] tracking-[0.45em] text-black font-black uppercase">
-            GIANNIC REVIEW
-          </span>
+          <span className="font-orbitron text-[10px] tracking-[0.45em] text-black font-black uppercase"
+                style={{
+                  color: `${hdTypo}`
+                }}>GIANNIC REVIEW</span>
           <div className="flex space-x-1">
             <div className="w-1.5 h-1.5 rounded-full bg-black" />
             <div className="w-1.5 h-1.5 rounded-full bg-neutral-300" />
@@ -270,12 +273,12 @@ const App = () => {
               
               {/* Яблоко (Central Album Cover) */}
               <div 
-                className="absolute inset-[18%] rounded-full border-[6px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
+                className="absolute inset-[18%] rounded-full border-[3px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
               >
                 <div 
                   className="absolute inset-0"
                   style={{
-                    backgroundImage: `url(${coverLink})`,
+                    backgroundImage: coverLink ? `url(${coverLink})` : `linear-gradient(135deg, #3B82F6, #4F46E5)`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}
@@ -283,7 +286,9 @@ const App = () => {
                 
                 {/* Центральное отверстие (Central Hole) */}
                 <div className="relative w-6 h-6 rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30"
-                    style={{backgroundImage: `linear-gradient(135deg, ${ftStop1}, ${ftStop2})`}}
+                      style={{
+                        backgroundColor: '#00000000'
+                      }}
                 >
                   <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
                 </div>
@@ -305,7 +310,7 @@ const App = () => {
         </div>
 
         {/* FOOTER */}
-        <div className="h-[56px] bg-[#f0f3f4] flex items-center justify-between px-8 border-t border-neutral-200 shrink-0 z-30">
+        <div className="h-[56px] bg-[#f0f3f4] flex items-center justify-between px-8 shrink-0 z-30">
           <div className="flex items-center w-full">
             {/* Секция со звездой и рейтингом */}
             <div className="flex flex-col items-center justify-center min-w-[30px]">
@@ -327,16 +332,21 @@ const App = () => {
 
             {/* RELEASE RANK - Strictly positioned between star and tier label */}
             <div className="flex flex-col items-center justify-center opacity-30 flex-1">
-              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black">RELEASE</span>
-              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black mt-1 leading-none">RANK</span>
+              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase"
+                    style={{
+                      color: `${ftTypo}`
+                    }}>RELEASE</span>
+              <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase text-black mt-1 leading-none"
+                                  style={{
+                      color: `${ftTypo}`
+                    }}>RANK</span>
             </div>
 
             {/* Tier label section with Orbitron font and dynamic gradient */}
             <div className="flex items-center justify-end min-w-[60px]">
               <span 
                 className="font-orbitron text-xl font-black tracking-tighter uppercase"
-                style={gradientTextStyle}
-              >
+                style={gradientTextStyle}>
                 {ratingValue === null ? "WAІTІNG…" : current.label}
               </span>
             </div>
