@@ -301,10 +301,10 @@ const App = () => {
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
             
             <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
-              {albumTitle}
+              {albumTitle ? albumTitle : "ALBUM TITLE"}
             </h2>
             <h3 className="relative font-mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.5em] uppercase mt-1 opacity-80">
-              {artist}
+              {artist ? artist : "ARTIST NAME"}
             </h3>
           </div>
         </div>
