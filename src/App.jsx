@@ -150,7 +150,7 @@ const adjustColor = (hex, lOffset, sOffset = 0) => {
 }
 
 const App = () => {
-  const coverLink = "ttps://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
+  const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
   const vinylColor = "#F0F0F0";
   const bgStop1 = '#FFFFFF';
   const bgStop2 = '#FFFFFF';
@@ -158,8 +158,8 @@ const App = () => {
   const hdStop2 = '#FFFFFF';
   const ftStop1 = '#FFFFFF';
   const ftStop2 = '#FFFFFF';
-    const albumTitle = "Врубай на полную!";
-    const artist = "Руки вверх!";
+  const albumTitle = "Врубай на полную!";
+  const artist = "Руки вверх!";
 
   const scaleMx = 1000;
   const rateArray = [846, 978, 812, 910];
