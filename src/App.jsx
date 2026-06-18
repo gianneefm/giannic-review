@@ -151,14 +151,14 @@ const adjustColor = (hex, lOffset, sOffset = 0) => {
 
 const App = () => {
   const coverLink = '';
-  const vinylColor = '#F5F5ED';
-  const bgStop1 = '#F2F5E9';
-  const bgStop2 = '#D6DBCC';
+  const vinylColor = '#FFFFFF';
+  const bgStop1 = '#FFFFFF';
+  const bgStop2 = '#FFFFFF';
   const hdStop1 = '#FFFFFF';
-  const hdStop2 = '#F8F8F4';
+  const hdStop2 = '#FFFFFF';
   const hdTypo = '#333333';
-  const ftStop1 = '#171411';
-  const ftStop2 = '#0D100B';
+  const ftStop1 = '#FFFFFF';
+  const ftStop2 = '#FFFFFF';
   const ftTypo = '##696868';
   const albumTitle = '';
   const artist = '';
