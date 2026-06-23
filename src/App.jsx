@@ -167,7 +167,7 @@ const App = () => {
   const coverLink = 'https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg';
   const vinylColor = '#23235c';
   const bgStop1 = '#FFD700';
-  const bgStop2 = ''#FFFFF4;
+  const bgStop2 = ’#FFFFF4';
   const hdStop1 = '#FFFFFF';
   const hdStop2 = '#F8F8F4';
   const hdTypo = '#333333';
