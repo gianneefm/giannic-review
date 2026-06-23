@@ -141,30 +141,44 @@ const hslToHex = (h, s, l) => {
   return `#${f(0)}${f(8)}${f(4)}`;
 };
 
+/**
+ * IMPROVED: adjustColor
+ * This version prevents dark colors from collapsing into pure black by clamping
+ * the minimum lightness and adjusting the offset based on the initial lightness value.
+ */
 const adjustColor = (hex, lOffset, sOffset = 0) => {
   let { h, s, l } = hexToHSL(hex);
-  // Ограничиваем значения в диапазоне 0-100
+  
+  // If the color is already dark (L < 25), reduce the intensity of negative offsets
+  // and ensure a minimum floor for visibility.
+  let calculatedLOffset = lOffset;
+  if (l < 25 && lOffset < 0) {
+    calculatedLOffset = lOffset * (l / 35); // Attenuate the darkening effect
+  }
+
   s = Math.max(0, Math.min(100, s + sOffset));
-  l = Math.max(0, Math.min(100, l + lOffset));
+  // Clamp L between 5 and 95 to prevent pure black/white collapse
+  l = Math.max(5, Math.min(95, l + calculatedLOffset));
+  
   return hslToHex(h, s, l);
 }
 
 const App = () => {
-const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
-  const vinylColor = "#F5F5ED";
-  const bgStop1 = '#F2F5E9';
-  const bgStop2 = '#D6DBCC';
+  const coverLink = 'https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg';
+  const vinylColor = '#23235c';
+  const bgStop1 = '#FFD700';
+  const bgStop2 = ''#FFFFF4;
   const hdStop1 = '#FFFFFF';
   const hdStop2 = '#F8F8F4';
   const hdTypo = '#333333';
   const ftStop1 = '#171411';
-  const ftStop2 = '#0D100B';
-  const ftTypo = '#F0F0F0';
-  const albumTitle = "Врубай на полную!";
-  const artist = "Руки вверх!";
+  const ftStop2 = '#000000';
+  const ftTypo = '#FFFFFF';
+  const albumTitle = 'Врубай на полную!'
+  const artist = 'Руки вверх!';
 
   const scaleMx = 1000;
-  const rateArray = [846, 978, 812, 910, 613];
+  const rateArray = [846, 978, 812, 910, 454];
   const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * (scaleMx / 5));
 
   const TIERS = [
@@ -185,7 +199,6 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
   const fillPercentage = ratingValue !== null ? (ratingValue / 5) * 100 : 0;
   const displayRating = ratingValue !== null ? ratingValue.toFixed(2).replace('.', ',') : null;
 
-  // Расчет градиента для текста на основе логики звезды
   const getTextGradient = () => {
     if (ratingValue === null) return null;
 
@@ -200,13 +213,12 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
     } else if (ratingValue > current.average) {
       return `linear-gradient(to right, ${currentDark}, ${current.color}, ${mixedNext})`;
     } else {
-      return current.color; // Сплошной цвет, если точно равно среднему
+      return current.color;
     }
   };
 
   const textGradient = getTextGradient();
 
-  // Общие стили для применения градиента к тексту
   const gradientTextStyle = ratingValue !== null ? {
     backgroundImage: textGradient,
     WebkitBackgroundClip: 'text',
@@ -218,7 +230,6 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-neutral-200 p-4">
-      {/* Интеграция шрифтов Orbitron, Space Grotesk и Share Tech Mono */}
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Space+Grotesk:wght@400;700;900&display=swap');
         .font-orbitron {
@@ -260,18 +271,23 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
         }}>
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
             
-            {/* Глубокая тень */}
             <div className="absolute inset-2 rounded-full shadow-[0_30px_60px_-5px_rgba(0,0,0,1)]"></div>
             
-            {/* Диск (Vinyl Container) */}
             <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/40 overflow-hidden shadow-inner">
+              {/* UPDATED: Radial Gradient logic 
+                  Uses conservative offsets and the improved adjustColor to maintain richness in dark blues.
+              */}
               <div className="absolute inset-0" 
                   style={{
-                    background: `radial-gradient(circle, ${vinylColor} 0%, ${adjustColor(vinylColor, -30, -10)} 60%, ${adjustColor(vinylColor, 5, 5)} 100%)`
+                    background: `radial-gradient(circle, 
+                      ${adjustColor(vinylColor, -15, -5)} 0%, 
+                      ${vinylColor} 55%, 
+                      ${adjustColor(vinylColor, 12, 10)} 100%
+                    )`
                 }}/>
               <div className="absolute inset-0 rounded-full border border-white/5" />
               
-              {/* Яблоко (Central Album Cover) */}
+              {/* Central Album Cover */}
               <div 
                 className="absolute inset-[18%] rounded-full border-[3px] border-[#13110f] flex items-center justify-center shadow-[0_0_30px_rgba(0,0,0,0.8)] z-20 overflow-hidden"
               >
@@ -284,10 +300,10 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
                   }}
                 />
                 
-                {/* Центральное отверстие (Central Hole) */}
+                {/* Central Hole */}
                 <div className="relative w-6 h-6 rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30"
                       style={{
-                        backgroundColor: '#00000000'
+                        backgroundColor: vinylColor ? vinylColor : '#FFFFFF'
                       }}
                 >
                   <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
@@ -296,15 +312,14 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
             </div>
           </div>
 
-          {/* Текстовая подложка */}
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-8 pointer-events-none text-center">
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
             
             <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
-              {albumTitle}
+              {albumTitle ? albumTitle : "ALBUN TITLE"}
             </h2>
             <h3 className="relative font-mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.5em] uppercase mt-1 opacity-80">
-              {artist}
+              {artist ? artist : 'ARTIST NAME'}
             </h3>
           </div>
         </div>
@@ -312,7 +327,6 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
         {/* FOOTER */}
         <div className="h-[56px] bg-[#f0f3f4] flex items-center justify-between px-8 shrink-0 z-30">
           <div className="flex items-center w-full">
-            {/* Секция со звездой и рейтингом */}
             <div className="flex flex-col items-center justify-center min-w-[30px]">
               <DynamicGradientStar 
                 id="star-rating-main" 
@@ -330,7 +344,6 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
               </span>
             </div>
 
-            {/* RELEASE RANK - Strictly positioned between star and tier label */}
             <div className="flex flex-col items-center justify-center opacity-30 flex-1">
               <span className="font-orbitron text-[7px] tracking-[0.3em] font-black uppercase"
                     style={{
@@ -342,7 +355,6 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
                     }}>RANK</span>
             </div>
 
-            {/* Tier label section with Orbitron font and dynamic gradient */}
             <div className="flex items-center justify-end min-w-[60px]">
               <span 
                 className="font-orbitron text-xl font-black tracking-tighter uppercase"
@@ -359,4 +371,4 @@ const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
   );
 };
 
-export default App;
+export default App;            
