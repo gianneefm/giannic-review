@@ -143,36 +143,28 @@ const hslToHex = (h, s, l) => {
 
 const adjustColor = (hex, lOffset, sOffset = 0) => {
   let { h, s, l } = hexToHSL(hex);
-  
-  // Адаптивное смещение для очень тёмных базовых цветов.
-  // Если исходная светлота (L) меньше 30%, мы инвертируем отрицательное смещение в положительное,
-  // чтобы цвет становился светлее и проступал оттенок, а не уходил в сплошной черный.
-  let targetLOffset = lOffset;
-  if (l < 30 && lOffset < 0) {
-    targetLOffset = Math.abs(lOffset) * 0.5; // Слегка осветляем вместо сильного затемнения
-  }
-
+  // Ограничиваем значения в диапазоне 0-100
   s = Math.max(0, Math.min(100, s + sOffset));
-  l = Math.max(0, Math.min(100, l + targetLOffset));
+  l = Math.max(0, Math.min(100, l + lOffset));
   return hslToHex(h, s, l);
 }
 
 const App = () => {
-  const coverLink = 'https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg';
- const vinylColor = '';
-  const bgStop1 = '#FFD700';
-  const bgStop2 = '#FFFFF4';
+const coverLink = "https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg";
+  const vinylColor = "#F5F5ED";
+  const bgStop1 = '#F2F5E9';
+  const bgStop2 = '#D6DBCC';
   const hdStop1 = '#FFFFFF';
   const hdStop2 = '#F8F8F4';
   const hdTypo = '#333333';
   const ftStop1 = '#171411';
-  const ftStop2 = '#000441';
-  const ftTypo = '#FFF';
-  const albumTitle = 'Врубай на полную!';
-  const artist = 'Руки вверх!';
+  const ftStop2 = '#0D100B';
+  const ftTypo = '#F0F0F0';
+  const albumTitle = "Врубай на полную!";
+  const artist = "Руки вверх!";
 
   const scaleMx = 1000;
-  const rateArray = [846, 978, 812,  910, 454];
+  const rateArray = [846, 978, 812, 910, 613];
   const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * (scaleMx / 5));
 
   const TIERS = [
@@ -250,11 +242,7 @@ const App = () => {
 
       <div className="w-full max-w-[450px] aspect-square flex flex-col shadow-2xl rounded-sm overflow-hidden relative">
         {/* HEADER */}
-        <div className="h-[32px] flex items-center justify-between px-6 border-b border-neutral-100 shrink-0 z-30 text-black"
-          style={{
-            background: `linear-gradient(135deg, ${hdStop1}, ${hdStop2})`
-          }}
-        >
+        <div className="h-[32px] bg-[#fdfdfb] flex items-center justify-between px-6 border-b border-neutral-100 shrink-0 z-30 text-black">
           <span className="font-orbitron text-[10px] tracking-[0.45em] text-black font-black uppercase"
                 style={{
                   color: `${hdTypo}`
@@ -279,7 +267,7 @@ const App = () => {
             <div className="absolute inset-0 rounded-full vinyl-base border-[3px] border-black/40 overflow-hidden shadow-inner">
               <div className="absolute inset-0" 
                   style={{
-                    background: (vinylColor ?`radial-gradient(circle, ${adjustColor(vinylColor, -15, -5)} 0%, ${vinylColor} 60%, ${adjustColor(vinylColor, 12, 10)} 100%)` : `radial-gradient(circle, ${adjustColor('#FFFFFF', -15, -5)} 0%, ${vinylColor} 60%, ${adjustColor('#FFFFFF', 12, 10)} 100%)`)
+                    background: `radial-gradient(circle, ${vinylColor} 0%, ${adjustColor(vinylColor, -30, -10)} 60%, ${adjustColor(vinylColor, 5, 5)} 100%)`
                 }}/>
               <div className="absolute inset-0 rounded-full border border-white/5" />
               
@@ -299,7 +287,7 @@ const App = () => {
                 {/* Центральное отверстие (Central Hole) */}
                 <div className="relative w-6 h-6 rounded-full border border-black/20 shadow-inner flex items-center justify-center z-30"
                       style={{
-                        backgroundColor: vinylColor ? vinylColor : '#FFFFFF'
+                        backgroundColor: '#00000000'
                       }}
                 >
                   <div className="w-1.5 h-1.5 bg-neutral-300 rounded-full opacity-50" />
@@ -313,20 +301,16 @@ const App = () => {
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
             
             <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
-              {albumTitle ? albumTitle : "ALBUN TITLE"}
+              {albumTitle}
             </h2>
             <h3 className="relative font-mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.5em] uppercase mt-1 opacity-80">
-              {artist ? artist : 'ARTIST NAME'}
+              {artist}
             </h3>
           </div>
         </div>
 
         {/* FOOTER */}
-        <div className="h-[56px] flex items-center justify-between px-8 shrink-0 z-30"
-              style={{
-                      background: `linear-gradient(135deg, ${ftStop1}, ${ftStop2})`
-                    }}
->
+        <div className="h-[56px] bg-[#f0f3f4] flex items-center justify-between px-8 shrink-0 z-30">
           <div className="flex items-center w-full">
             {/* Секция со звездой и рейтингом */}
             <div className="flex flex-col items-center justify-center min-w-[30px]">
