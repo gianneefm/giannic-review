@@ -150,8 +150,8 @@ const adjustColor = (hex, lOffset, sOffset = 0) => {
 }
 
 const App = () => {
-  const coverLink = '';
-  const vinylColor = '';
+  const coverLink = 'https://i.ibb.co/pBT0vjQY/Cover-of-by-Ruki-Vverh.jpg';
+  const vinylColor = '#23235c';
   const bgStop1 = '';
   const bgStop2 = '';
   const hdStop1 = '';
