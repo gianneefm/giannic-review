@@ -158,21 +158,21 @@ const App = () => {
   const cardRef = React.useRef(null);
     const coverLink = 'https://i.ibb.co/kVDmmxfH/ae3e731e4b793b929f0fd104d13ac522-1000x1000x1.png';
 
-    const vinylColor = '#000000';
+    const vinylColor = '';
     
-    const hdStop1 = '#eeeeee';
-    const hdStop2 = '#ffffff';
-    const hdTypo = '#000040';
+    const hdStop1 = '';
+    const hdStop2 = '';
+    const hdTypo = '';
    
-    const bgStop1 = '#ffd700';
-    const bgStop2 = '#ffffe0';
+    const bgStop1 = '';
+    const bgStop2 = '';
 
-    const ftStop1 = '#000000';
-    const ftStop2 = '#000040';
-    const ftTypo = '#b0afac';
+    const ftStop1 = '';
+    const ftStop2 = '';
+    const ftTypo = '';
 
-    const albumTitle = 'Врубай на полную!';
-    const artist = 'Руки вверх!';
+    const albumTitle = '';
+    const artist = '';
 
     const proxiedCoverLink = useMemo(() => {
   if (!coverLink) return null;
