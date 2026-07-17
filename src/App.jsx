@@ -156,19 +156,19 @@ const adjustColor = (hex, lOffset, sOffset = 0) => {
 
 const App = () => {
   const cardRef = React.useRef(null);
-    const coverLink = 'https://i.ibb.co/kVDmmxfH/ae3e731e4b793b929f0fd104d13ac522-1000x1000x1.png';
+    const coverLink = '';
 
     const vinylColor = '';
     
     const hdStop1 = '';
-    const hdStop2 = '';
+    const hdStop2 =  '';
     const hdTypo = '';
    
-    const bgStop1 = '';
+    const bgStop1 =  '';
     const bgStop2 = '';
 
     const ftStop1 = '';
-    const ftStop2 = '';
+    const ftStop2 =  '';
     const ftTypo = '';
 
     const albumTitle = '';
@@ -198,7 +198,7 @@ const App = () => {
 }, [artist, albumTitle]); 
 
     const scaleMx = 1000;
-    const rateArray = [846, 910, 812, 978, 454, 596];
+    const rateArray = [];
     const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * (scaleMx / 5));
 
     const TIERS = [
@@ -352,7 +352,7 @@ const App = () => {
           <div className="absolute inset-0 z-20 flex flex-col items-center justify-end pb-8 px-8 pointer-events-none text-center">
             <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/95 via-black/50 to-transparent backdrop-blur-[0.5px]" />
             
-            <h2 className="relative font-mono text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
+            <h2 className="relative font-header text-xl md:text-2xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
               {albumTitle ? albumTitle : "ALBUN TITLE"}
             </h2>
             <h3 className="relative font-mono text-[10px] md:text-[11px] font-bold text-white tracking-[0.5em] uppercase mt-1 opacity-80">
