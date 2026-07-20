@@ -156,7 +156,7 @@ const adjustColor = (hex, lOffset, sOffset = 0) => {
 
 const App = () => {
   const cardRef = React.useRef(null);
-    const coverLink = '';
+    const coverLink = 'https://i.ibb.co/1Gg5sjDr/e7085082ee74ca0b39999654615e53e8-1000x1000x1.png';
 
     const vinylColor = '#54443b';
     
@@ -164,16 +164,16 @@ const App = () => {
     const hdStop2 = '#C9A56A';
     const hdTypo  = '#21170F';
 
-     const bgStop1 = '#1A1518';
-      const bgStop2 = '#5C2F22';
+     const bgStop1 = '';
+      const bgStop2 = '';
 
     const ftStop1 = '#B3D1DA';
     const ftStop2 = '#99B8B4';
     const ftStop3 = '#c9f0db';
     const ftTypo  = '#182124';
 
-    const albumTitle = '';
-    const artist = '';
+    const albumTitle = 'everything under the sun';
+    const artist = 'Nickelback';
 
     const proxiedCoverLink = useMemo(() => {
   if (!coverLink) return null;
