@@ -199,7 +199,7 @@ const App = () => {
 }, [artist, albumTitle]); 
 
     const scaleMx = 1000;
-    const rateArray = [];
+    const rateArray = [1000];
     const ratingValue = !rateArray.length ? null : rateArray.reduce((sum, value) => sum + value, 0) / (rateArray.length * (scaleMx / 5));
 
     const TIERS = [
