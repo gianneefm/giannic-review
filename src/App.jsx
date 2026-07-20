@@ -158,7 +158,7 @@ const App = () => {
   const cardRef = React.useRef(null);
     const coverLink = 'https://i.ibb.co/1Gg5sjDr/e7085082ee74ca0b39999654615e53e8-1000x1000x1.png';
 
-    const vinylColor = '#54443b';
+    const vinylColor = '#cec892';
     
     const hdStop1 = '#E8D7B0';
     const hdStop2 = '#C9A56A';
@@ -167,7 +167,7 @@ const App = () => {
      const bgStop1 = '#F3E5BF';
      const bgStop2 = '#F4F1EA';
     const bgStop3 = '#DDE8E8';
-    const bgStop4 = '#BEDB
+    const bgStop4 = '#BEDBCF';
 
     const ftStop1 = '#B3D1DA';
     const ftStop2 = '#99B8B4';
