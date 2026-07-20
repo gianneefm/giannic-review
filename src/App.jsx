@@ -160,9 +160,9 @@ const App = () => {
 
     const vinylColor = '#54443b';
     
-    const hdStop1 = '';
-    const hdStop2 =  '';
-    const hdTypo = '';
+    const hdStop1 = '#E8D7B0';
+    const hdStop2 = '#C9A56A';
+    const hdTypo  = '#21170F';
    
     const bgStop1 =  '';
     const bgStop2 = '';
