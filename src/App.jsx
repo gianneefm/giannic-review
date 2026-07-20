@@ -167,9 +167,11 @@ const App = () => {
     const bgStop1 =  '';
     const bgStop2 = '';
 
-    const ftStop1 = '';
-    const ftStop2 =  '';
-    const ftTypo = '';
+    const ftStop1 = '#B3D1DA';
+    const ftStop2 = '#99B8B4';
+    const ftStop3 = '#c9f0db';
+     
+    const ftTypo  = '#182124';
 
     const albumTitle = '';
     const artist = '';
@@ -365,7 +367,7 @@ const App = () => {
         <div className="h-[56px] flex items-center justify-between px-8 shrink-0 z-30"
               style={{
                 borderTop: `${hexToHSL(ftStop1).l < 20 ? '1px solid #ffffff1a' : 'none'}`,
-                background: `linear-gradient(to bottom, ${ftStop1 || '#FFFFFF'} 0%, ${ftStop2 || '#FFFFFF'} 100%)`
+                background: `linear-gradient(to bottom, ${ftStop1 || '#FFFFFF'} 0%, ${ftStop2 || '#FFFFFF'} 50%, ${ftStop3  || '#FFFFFF'} 100%)`
               }}
         >
           <div className="flex items-center w-full">
