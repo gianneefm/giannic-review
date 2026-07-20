@@ -163,14 +163,13 @@ const App = () => {
     const hdStop1 = '#E8D7B0';
     const hdStop2 = '#C9A56A';
     const hdTypo  = '#21170F';
-   
-    const bgStop1 =  '';
-    const bgStop2 = '';
+
+     const bgStop1 = '#1A1518';
+      const bgStop2 = '#5C2F22';
 
     const ftStop1 = '#B3D1DA';
     const ftStop2 = '#99B8B4';
     const ftStop3 = '#c9f0db';
-     
     const ftTypo  = '#182124';
 
     const albumTitle = '';
