@@ -158,7 +158,7 @@ const App = () => {
   const cardRef = React.useRef(null);
     const coverLink = '';
 
-    const vinylColor = '';
+    const vinylColor = '#54443b';
     
     const hdStop1 = '';
     const hdStop2 =  '';
