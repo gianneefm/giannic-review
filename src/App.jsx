@@ -164,8 +164,10 @@ const App = () => {
     const hdStop2 = '#C9A56A';
     const hdTypo  = '#21170F';
 
-     const bgStop1 = '';
-      const bgStop2 = '';
+     const bgStop1 = '#F3E5BF';
+     const bgStop2 = '#F4F1EA';
+    const bgStop3 = '#DDE8E8';
+    const bgStop4 = '#BEDB
 
     const ftStop1 = '#B3D1DA';
     const ftStop2 = '#99B8B4';
@@ -296,7 +298,8 @@ const App = () => {
         {/* VINYL SECTION */}
         <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden" 
               style={{
-                background: `linear-gradient(to bottom, ${bgStop1 || '#FFFFFF'} 0%, ${bgStop2 || '#FFFFFF'} 100%)`
+               background: `linear-gradient (to bottom, ${bgStop1 || '#FFFFFF'} 0%, ${bgStop2 || '#FFFFFF'} 24%, ${bgStop3 || '#FFFFFF'} 62%,
+${bgStop4 || '#FFFFFF'} 100%`
         }}>
           <div className="relative w-[80%] aspect-square z-10 flex items-center justify-center">
             
