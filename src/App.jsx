@@ -164,10 +164,7 @@ const App = () => {
     const hdStop2 = '#C9A56A';
     const hdTypo  = '#21170F';
 
-     const bgStop1 = '#F3E5BF';
-     const bgStop2 = '#F4F1EA';
-    const bgStop3 = '#DDE8E8';
-    const bgStop4 = '#BEDBCF';
+     
 
     
 const bgStop1 = '#e6cf94';
