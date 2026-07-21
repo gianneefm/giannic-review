@@ -169,10 +169,11 @@ const App = () => {
     const bgStop3 = '#DDE8E8';
     const bgStop4 = '#BEDBCF';
 
-    const ftStop1 = '#B3D1DA';
-    const ftStop2 = '#99B8B4';
-    const ftStop3 = '#c9f0db';
-    const ftTypo  = '#182124';
+    
+const bgStop1 = '#e6cf94';
+const bgStop2 = '#d7e3b0';
+const bgStop3 = '#d1eae9';
+const bgStop4 = '#aee0c9';
 
     const albumTitle = 'everything under the sun';
     const artist = 'Nickelback';
